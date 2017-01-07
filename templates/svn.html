@@ -1,0 +1,11 @@
+$def with (posts)
+
+<h1>svn清单</h1>
+
+<ul>
+  $for post in posts:
+  <li>
+    $post
+    <a href="/svn_delete/$post">删除</a>
+  </li>
+</ul>

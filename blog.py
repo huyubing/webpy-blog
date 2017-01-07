@@ -14,6 +14,7 @@ urls = (
     '/new', 'New',
     '/delete/(\d+)', 'Delete',
     '/edit/(\d+)', 'Edit',
+    '/svn', 'Svn'    # svn管理页面
 )
 
 
@@ -49,7 +50,7 @@ class New:
         web.form.Textarea('content', web.form.notnull, 
             rows=30, cols=80,
             description=u"内容:"),
-        web.form.Button("test"),
+        web.form.Button('OK'),
         web.form.Button("submit", type="submit", description="Register"),
     )
 
@@ -63,6 +64,9 @@ class New:
         form = self.form()
         if not form.validates():
             return render.new(form)
+        print "Post2"
+        print form.d.title
+        print form.d.content
         model.new_post(form.d.title, form.d.content)
         raise web.seeother('/')
 
@@ -97,6 +101,12 @@ class Edit:
         raise web.seeother('/')
 
 
+class Svn:
+    
+    def GET(self):
+        lists = model.get_svn_list()
+        return render.svn(lists)
+        
 app = web.application(urls, globals())
 
 if __name__ == '__main__':
