@@ -14,7 +14,8 @@ urls = (
     '/new', 'New',
     '/delete/(\d+)', 'Delete',
     '/edit/(\d+)', 'Edit',
-    '/svn', 'Svn'    # svn管理页面
+    '/svn', 'Svn',    # svn管理页面
+    '/pierre', 'Pierre', # piere照片
 )
 
 
@@ -106,7 +107,13 @@ class Svn:
     def GET(self):
         lists = model.get_svn_list()
         return render.svn(lists)
-        
+
+class Pierre:
+
+    def GET(self):
+        return web.seeother('/static/pierre.png')
+
+    
 app = web.application(urls, globals())
 
 if __name__ == '__main__':
